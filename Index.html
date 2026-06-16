@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notas Carolina</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="logo">
+            <i class="fas fa-note-sticky"></i>
+            <h1>Notas Carolina Pro</h1>
+        </div>
+
+        <div class="header-actions">
+
+            <button id="darkModeBtn">
+                <i class="fas fa-moon"></i>
+                Modo Oscuro
+            </button>
+
+        </div>
+
+    </header>
+
+    <!-- DASHBOARD -->
+
+    <section class="dashboard">
+
+        <div class="card-stat">
+            <i class="fas fa-file-alt"></i>
+            <div>
+                <h2 id="totalNotes">0</h2>
+                <p>Notas</p>
+            </div>
+        </div>
+
+        <div class="card-stat">
+            <i class="fas fa-star"></i>
+            <div>
+                <h2 id="favoriteCount">0</h2>
+                <p>Favoritas</p>
+            </div>
+        </div>
+
+        <div class="card-stat">
+            <i class="fas fa-folder"></i>
+            <div>
+                <h2 id="categoryCount">0</h2>
+                <p>Categorías</p>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+
+    <div class="container">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <h2>Mis Notas</h2>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="🔍 Buscar nota...">
+
+            <select id="filterCategory">
+
+                <option value="">
+                    Todas las categorías
+                </option>
+
+                <option value="Escolar">
+                    Escolar
+                </option>
+
+                <option value="Personal">
+                    Personal
+                </option>
+
+                <option value="Tareas">
+                    Tareas
+                </option>
+
+                <option value="Trabajo">
+                    Trabajo
+                </option>
+
+                <option value="Ideas">
+                    Ideas
+                </option>
+
+                <option value="Proyectos">
+                    Proyectos
+                </option>
+
+            </select>
+
+            <button id="newNoteBtn">
+                <i class="fas fa-plus"></i>
+                Nueva Nota
+            </button>
+
+            <div id="notesList"></div>
+
+        </aside>
+
+        <!-- CONTENIDO -->
+
+        <main>
+
+            <div class="editor">
+
+                <input
+                    type="text"
+                    id="noteTitle"
+                    placeholder="Título de la nota">
+
+                <div class="row">
+
+                    <select id="noteCategory">
+
+                        <option>Escolar</option>
+                        <option>Personal</option>
+                        <option>Tareas</option>
+                        <option>Trabajo</option>
+                        <option>Ideas</option>
+                        <option>Proyectos</option>
+
+                    </select>
+
+                    <button id="favoriteBtn">
+                        ⭐ Favorita
+                    </button>
+
+                </div>
+
+                <input
+                    type="text"
+                    id="noteTags"
+                    placeholder="Etiquetas: #examen #importante">
+
+                <textarea
+                    id="noteContent"
+                    placeholder="Escribe tu nota aquí...">
+                </textarea>
+
+                <!-- ESTADÍSTICAS -->
+
+                <div class="stats">
+
+                    <span>
+                         Palabras:
+                        <strong id="wordCount">0</strong>
+                    </span>
+
+                    <span>
+                         Caracteres:
+                        <strong id="charCount">0</strong>
+                    </span>
+
+                    <span>
+                        ⏱ Lectura:
+                        <strong id="readingTime">0 min</strong>
+                    </span>
+
+                </div>
+
+                <!-- FECHAS -->
+
+                <div class="dates">
+
+                    <p>
+                         Creación:
+                        <span id="createdDate">-</span>
+                    </p>
+
+                    <p>
+                         Modificación:
+                        <span id="updatedDate">-</span>
+                    </p>
+
+                </div>
+
+                <!-- BOTONES -->
+
+                <div class="actions">
+
+                    <button id="saveBtn">
+                        💾 Guardar
+                    </button>
+
+                    <button id="deleteBtn">
+                        🗑 Eliminar
+                    </button>
+
+                    <button id="pdfBtn">
+                        📄 Exportar PDF
+                    </button>
+
+                    <button id="exportJsonBtn">
+                        📦 Exportar JSON
+                    </button>
+
+                    <label
+                        for="importJson"
+                        class="importBtn">
+
+                        📥 Importar JSON
+
+                    </label>
+
+                    <input
+                        type="file"
+                        id="importJson"
+                        hidden>
+
+                </div>
+
+            </div>
+
+            <!-- DIBUJO -->
+
+            <section class="drawing-section">
+
+                <h2>
+                    🎨 Área de Dibujo
+                </h2>
+
+                <div class="drawing-tools">
+
+                    <input
+                        type="color"
+                        id="brushColor"
+                        value="#7c3aed">
+
+                    <input
+                        type="range"
+                        id="brushSize"
+                        min="1"
+                        max="20"
+                        value="3">
+
+                    <button id="eraserBtn">
+                         Borrador
+                    </button>
+
+                    <button id="clearCanvasBtn">
+                        🗑 Limpiar
+                    </button>
+
+                    <button id="saveImageBtn">
+                         Exportar PNG
+                    </button>
+
+                </div>
+
+                <canvas
+                    id="drawingCanvas"
+                    width="900"
+                    height="350">
+                </canvas>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- PAPELERA -->
+
+    <section class="trash-section">
+
+    <div class="trash-header">
+
+        <h2>
+            🗑 Papelera de Reciclaje
+        </h2>
+
+        <button id="emptyTrashBtn">
+             Vaciar Papelera
+        </button>
+
+    </div>
+    <div id="trashList"></div>
+
+    </section>
+
+    <!-- NOTIFICACIONES -->
+
+    <div id="toast"></div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
